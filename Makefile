@@ -3,15 +3,21 @@
 # Command to check for pdflatex
 LATEX = pdflatex
 LATEX_CHECK = $(shell command -v $(LATEX) 2>/dev/null)
+TEXLIVE_CHECK = $(shell dpkg-query -W -f='${Status}' texlive-full 2>/dev/null | grep "install ok installed")
 
-# Install pdflatex if not found
+# Install texlive-full if not found
 check-latex:
-ifndef LATEX_CHECK
-	@echo "pdflatex is not installed. Installing..."
-	@sudo apt-get update && sudo apt-get install -y texlive-latex-base
-else
-	@echo "pdflatex is already installed."
-endif
+	@if [ -z "$(LATEX_CHECK)" ]; then \
+		echo "pdflatex is not installed. Installing texlive-full..."; \
+		sudo apt-get update && sudo apt-get install -y texlive-full; \
+	else \
+		if [ -z "$(TEXLIVE_CHECK)" ]; then \
+			echo "texlive-full is not installed. Installing..."; \
+			sudo apt-get update && sudo apt-get install -y texlive-full; \
+		else \
+			echo "texlive-full is already installed."; \
+		fi; \
+	fi
 
 # Find all .tex files in the directory structure
 TEX_FILES := $(shell find . -type f -name '*.tex')
