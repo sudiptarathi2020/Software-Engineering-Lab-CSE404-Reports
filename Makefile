@@ -34,7 +34,6 @@ clean:
 	@echo "Cleaning up..."
 	@find . -type f -name '*.aux' -delete
 	@find . -type f -name '*.log' -delete
-	@find . -type f -name '*.pdf' -delete
 	@find . -type f -name '*.out' -delete
 	@find . -type f -name '*.toc' -delete
 	@echo "Clean complete."
