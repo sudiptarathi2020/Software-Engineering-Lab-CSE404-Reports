@@ -9,11 +9,11 @@ TEXLIVE_CHECK = $(shell dpkg-query -W -f='${Status}' texlive-full 2>/dev/null | 
 check-latex:
 	@if [ -z "$(LATEX_CHECK)" ]; then \
 		echo "pdflatex is not installed. Installing texlive-full..."; \
-		sudo apt-get update && sudo apt-get install -y texlive-full; \
+		sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra; \
 	else \
 		if [ -z "$(TEXLIVE_CHECK)" ]; then \
 			echo "texlive-full is not installed. Installing..."; \
-			sudo apt-get update && sudo apt-get install -y texlive-full; \
+			sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra; \
 		else \
 			echo "texlive-full is already installed."; \
 		fi; \
