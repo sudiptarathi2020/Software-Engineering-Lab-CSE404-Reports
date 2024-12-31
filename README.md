@@ -7,7 +7,7 @@ My Software Engineering Lab Reports for the course CSE-404 are stored here.
 ## Steps
 If you dont have pdflatex installed,install by running this commad
 ```bash
-make
+sudo apt install pdflatex-full
 ```
 Generate pdf files using
 ```bash
