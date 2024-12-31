@@ -2,22 +2,35 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: apt install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
-    - name: Generate pdf
+    # Install required LaTeX packages
+    - name: Install TeX Live packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          texlive-latex-base \
+          texlive-fonts-recommended \
+          texlive-fonts-extra \
+          texlive-latex-extra
+
+    # Build all PDFs using the Makefile
+    - name: Compile LaTeX documents
       run: make all
 
-    - name: Clean junks
+    # Clean up LaTeX auxiliary files
+    - name: Clean up build artifacts
       run: make clean
